@@ -61,11 +61,16 @@ function Navbar() {
 
       {/* Sidebar Mobile */}
       <div
-        className={`fixed top-0 left-0 h-full w-72 bg-green-700 shadow-lg z-50 transform transition-transform duration-300 
+        className={`fixed top-0 left-0 h-full w-80 bg-green-700 shadow-lg z-50 transform transition-transform duration-300 
         ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
         {/* Header Sidebar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-green-800">
+        <div className="flex items-center justify-between px-3 py-1 border-b border-green-800 bg-green-700">
+          <img
+            src="/images/logo.png"
+            className="w-12 h-12 object-contain"
+            alt="Company Logo"
+          />
           <h2 className="text-lg font-bold text-green-100">PT. Cahya Patra Buana</h2>
           <button onClick={() => setOpen(false)} className="text-green-100 text-2xl ">
             <FontAwesomeIcon icon={faXmark} />

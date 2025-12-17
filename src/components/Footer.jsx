@@ -29,8 +29,8 @@ function Footer() {
         <div>
           <h3 className="font-bold text-lg mb-3">Home</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li><a href="/" className="hover:text-white transition">Beranda</a></li>
-            <li><a href="/services" className="hover:text-white transition">Layanan</a></li>
+            <li><a href="/#hero" className="hover:underline transition">Beranda</a></li>
+            <li><a href="/#services" className="hover:underline transition">Layanan</a></li>
           </ul>
         </div>
 
@@ -38,9 +38,9 @@ function Footer() {
         <div>
           <h3 className="font-bold text-lg mb-3">About</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li><a href="/about" className="hover:text-white transition">Tentang Kami</a></li>
-            <li><a href="/vision" className="hover:text-white transition">Visi & Misi</a></li>
-            <li><a href="/team" className="hover:text-white transition">Tim</a></li>
+            <li><a href="/about#about" className="hover:underline transition">Tentang Kami</a></li>
+            <li><a href="/about#visimisi" className="hover:underline transition">Visi & Misi</a></li>
+            <li><a href="/about#galeri" className="hover:underline transition">Galeri Kegiatan</a></li>
           </ul>
         </div>
 
@@ -48,8 +48,8 @@ function Footer() {
         <div>
           <h3 className="font-bold text-lg mb-3">Contact</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li><a href="/contact" className="hover:text-white transition">Hubungi Kami</a></li>
-            <li><a href="#" className="hover:text-white transition">Lokasi</a></li>
+            <li><a href="/contact#contact" className="hover:underline transition">Hubungi Kami</a></li>
+            <li><a href="/contact#lokasi" className="hover:underline transition">Lokasi</a></li>
           </ul>
         </div>
 
@@ -68,7 +68,6 @@ function Footer() {
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faWhatsapp}/></a>
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faEnvelope}/></a>
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faInstagram}/></a>
-          <a href="/" className={iconStyle}><FontAwesomeIcon icon={faFacebookF}/></a>
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faLinkedinIn}/></a>
         </div>
       </div>

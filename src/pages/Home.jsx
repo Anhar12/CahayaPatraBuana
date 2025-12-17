@@ -10,7 +10,7 @@ function Home() {
   return (
     <MainLayout>
       {/* HERO SECTION */}
-      <section className="relative h-[530px] overflow-hidden">
+      <section className="relative h-[530px] overflow-hidden" id="hero">
         {/* Background Image */}
         <img
           src="/images/hero-bg.png"
@@ -19,7 +19,7 @@ function Home() {
         />
 
         {/* Overlay */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#36352b]/80 via-[#36352b]/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-linear-to-r from-[#36352b]/80 md:via-[#36352b]/60 md:to-transparent to-[#36352b]/80"></div>
 
         {/* Content */}
         <div className="relative z-10 h-full flex items-center">
@@ -80,12 +80,12 @@ function Home() {
             <div
               className="
                 bg-white p-8 rounded-xl cursor-pointer
-                shadow-[0_8px_0_0_rgba(22,163,74,0.25)]
+                shadow-[0_8px_0_0_rgba(22,163,74,0.4)]
                 transition-all duration-300 ease-out
                 hover:translate-y-[2px]
-                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.25)]
+                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.4)]
                 active:translate-y-[6px]
-                active:shadow-none border border-green-200
+                active:shadow-none border border-green-700/40
               "
             >
               <div className="w-16 h-16 bg-green-100 rounded-full mb-4 mx-auto flex items-center justify-center">
@@ -104,12 +104,12 @@ function Home() {
             <div
               className="
                 bg-white p-8 rounded-xl cursor-pointer
-                shadow-[0_8px_0_0_rgba(22,163,74,0.25)]
+                shadow-[0_8px_0_0_rgba(22,163,74,0.4)]
                 transition-all duration-300 ease-out
                 hover:translate-y-[2px]
-                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.25)]
+                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.4)]
                 active:translate-y-[6px]
-                active:shadow-none border border-green-200
+                active:shadow-none border border-green-700/40
               "
             >
               <div className="w-16 h-16 bg-green-100 rounded-full mb-4 mx-auto flex items-center justify-center">
@@ -128,12 +128,12 @@ function Home() {
             <div
               className="
                 bg-white p-8 rounded-xl cursor-pointer
-                shadow-[0_8px_0_0_rgba(22,163,74,0.25)]
+                shadow-[0_8px_0_0_rgba(22,163,74,0.4)]
                 transition-all duration-300 ease-out
                 hover:translate-y-[2px]
-                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.25)]
+                hover:shadow-[0_4px_0_0_rgba(22,163,74,0.4)]
                 active:translate-y-[6px]
-                active:shadow-none border border-green-200
+                active:shadow-none border border-green-700/40
               "
             >
               <div className="w-16 h-16 bg-green-100 rounded-full mb-4 mx-auto flex items-center justify-center">
