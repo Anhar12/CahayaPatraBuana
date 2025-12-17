@@ -19,7 +19,7 @@ function Footer() {
         {/* Logo */}
         <div className="flex justify-center items-center">
           <img
-            src="../src/assets/logo.png"
+            src="/images/logo.png"
             className="w-40 h-4w-40 object-contain"
             alt="Company Logo"
           />

@@ -13,7 +13,7 @@ function Home() {
       <section className="relative h-[530px] overflow-hidden">
         {/* Background Image */}
         <img
-          src="/hero-bg.png"
+          src="/images/hero-bg.png"
           className="absolute inset-0 w-full h-full object-cover scale-105"
           alt="Hero Background"
         />

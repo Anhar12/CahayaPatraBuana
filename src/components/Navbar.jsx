@@ -25,7 +25,7 @@ function Navbar() {
 
         <NavLink to="/" className="flex items-center gap-2">
           <img
-            src="../src/assets/logo.png"
+            src="/images/logo.png"
             className="w-14 h-14 object-contain"
             alt="Company Logo"
           />
