@@ -1,6 +1,75 @@
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { login } from "../services/authService"
+import Swal from "sweetalert2"
+import LoadingOverlay from "../components/LoadingOverlay"
+
 function Login() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      navigate("/admin/dashboard")
+    }
+  }, [])
+
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!username || !password) {
+      Swal.fire({
+        icon: "warning",
+        title: "Data belum lengkap",
+        text: "Username dan password wajib diisi",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#016630",
+      })
+      return
+    }
+
+    try {
+      setLoading(true)
+
+      const res = await login(username, password)
+      localStorage.setItem("token", res.token)
+
+      await Swal.fire({
+        icon: "success",
+        title: "Login berhasil",
+        timer: 2000,
+        timerProgressBar: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "#016630",
+      })
+
+      navigate("/admin/dashboard")
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Login gagal",
+        text: err.message || "Username atau password salah",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#016630",
+        background: "#ffffff",
+        color: "#1f2937",
+        customClass: {
+          popup: "rounded-xl",
+        },
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="relative min-h-screen font-body">
+      <LoadingOverlay show={loading} />
+      
       <img
         src="/images/login-bg.png"
         alt="Background"
@@ -37,14 +106,16 @@ function Login() {
           <div className="h-px bg-green-600/60 mb-6"></div>
 
           {/* Form */}
-          <div className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
-                Email
+                Username
               </label>
               <input
-                type="email"
-                placeholder="admin@cpb.co.id"
+                type="text"
+                placeholder="admin"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="
                   w-full px-4 py-2 rounded-md
                   border border-slate-300
@@ -62,6 +133,8 @@ function Login() {
               <input
                 type="password"
                 placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="
                   w-full px-4 py-2 rounded-md
                   border border-slate-300
@@ -70,21 +143,13 @@ function Login() {
                   focus:border-green-600
                 "
               />
-
-              {/* Reset Password */}
-              <div className="text-right mt-1">
-                <a
-                  href="/forgot-password"
-                  className="text-xs text-green-700 hover:text-green-800 hover:underline transition"
-                >
-                  Lupa password?
-                </a>
-              </div>
             </div>
 
             {/* Login Button */}
             <button
-              className="
+              type="submit"
+              disabled={loading}
+              className={`
                 relative px-6 py-3
                 bg-green-50 text-green-700 font-semibold
                 rounded-md border border-green-700
@@ -94,11 +159,12 @@ function Login() {
                 hover:shadow-[0_3px_0_0_rgb(0,166,62)]
                 active:translate-y-[6px]
                 active:shadow-none
-              "
+                ${loading ? "opacity-60 cursor-not-allowed" : ""}
+              `}
             >
-              Masuk
+              {loading ? "Memproses..." : "Masuk"}
             </button>
-          </div>
+          </form>
 
           <p className="text-xs text-slate-500 mt-6 text-center">
             © PT. Cahya Patra Buana

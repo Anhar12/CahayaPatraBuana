@@ -11,3 +11,60 @@ html {
 .font-body {
     font-family: "Montserrat", "sans-serif";
 }
+/* === BASE THEME === */
+.ag-theme-quartz.custom-grid {
+  --ag-border-color: #e5e7eb;
+  font-family: inherit;
+}
+
+/* === HEADER === */
+.ag-theme-quartz.custom-grid .ag-header {
+  background-color: #016630; /* hijau utama */
+}
+
+.ag-theme-quartz.custom-grid .ag-header-cell-text {
+  color: white;
+  font-weight: 600;
+}
+
+.ag-theme-quartz.custom-grid .ag-header-cell {
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* === FLOATING FILTER === */
+.ag-theme-quartz.custom-grid .ag-floating-filter {
+  background-color: #01572a;
+}
+
+.ag-theme-quartz.custom-grid .ag-floating-filter input {
+  color: white;
+}
+
+.ag-theme-quartz.custom-grid .ag-icon {
+  color: white;
+}
+
+.ag-theme-quartz.custom-grid .ag-floating-filter input::placeholder {
+  color: #d1fae5;
+}
+
+/* === ROW === */
+.ag-theme-quartz.custom-grid .ag-row:nth-child(even) {
+  background-color: #f0fdf4; /* green-50 */
+}
+
+.ag-theme-quartz.custom-grid .ag-row-hover {
+  background-color: #dcfce7 !important; /* green-100 */
+}
+
+/* === PAGINATION === */
+.ag-theme-quartz.custom-grid .ag-paging-panel {
+  border-top: 1px solid #e5e7eb;
+  padding: 8px 12px;
+  background-color: #f8fafc;
+}
+
+/* === FILTER ICON === */
+.ag-theme-quartz.custom-grid .ag-icon-filter {
+  color: white;
+}
