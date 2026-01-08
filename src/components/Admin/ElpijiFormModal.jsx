@@ -107,7 +107,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
       >
         {/* Header */}
         <div className="flex items-center justify-between bg-green-700 p-4">
-          <h2 className="text-xl font-bold text-white">
+          <h2 className="text-lg md:text-xl font-bold text-white">
             Tambah Data Pangkalan LPG
           </h2>
 
@@ -127,10 +127,10 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
         {/* Form */}
         <form onSubmit={handleSubmit} autoComplete="off" className="flex flex-col gap-4 p-4 border border-green-700/40">
           {[
-            { label: "Pangkalan", name: "pangkalan" },
-            { label: "Pemilik", name: "pemilik" },
-            { label: "Nomor HP", name: "nomor" },
-            { label: "Alamat", name: "alamat" },
+            { label: "Pangkalan", name: "pangkalan", placeholder: "Pangkalan..." },
+            { label: "Pemilik", name: "pemilik", placeholder: "Joko..." },
+            { label: "Nomor HP", name: "nomor", placeholder: "08xxxxx" },
+            { label: "Alamat", name: "alamat", placeholder: "Jl...." },
           ].map((f) => (
             <div key={f.name}>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -141,6 +141,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
                 value={form[f.name]}
                 onChange={handleChange}
                 required
+                placeholder={f.placeholder}
                 className="
                   w-full px-4 py-2 rounded-md
                   border border-slate-300
@@ -162,6 +163,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
                 name="elpiji_3kg"
                 value={form.elpiji_3kg}
                 onChange={handleChange}
+                placeholder="9xx"
                 required
                 className="w-full px-4 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-green-600/40 focus:outline-none focus:border-green-600"
               />
@@ -176,6 +178,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
                 name="elpiji_12kg"
                 value={form.elpiji_12kg}
                 onChange={handleChange}
+                placeholder="9xx"
                 required
                 className="w-full px-4 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-green-600/40 focus:outline-none focus:border-green-600"
               />

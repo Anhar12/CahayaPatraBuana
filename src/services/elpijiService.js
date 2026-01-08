@@ -3,7 +3,7 @@ import { apiFetch } from "./api"
 export function getElpiji({ search = "" } = {}) {
   const params = new URLSearchParams()
   if (search) params.append("search", search)
-
+  
   return apiFetch(`/api/elpiji?${params.toString()}`)
 }
 

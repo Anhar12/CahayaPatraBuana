@@ -68,3 +68,35 @@ html {
   font-weight: 600;
 }
 
+/* Mobile pagination fix */
+@media (max-width: 640px) {
+  .ag-paging-panel {
+    height: auto !important;
+    padding: 6px 2px;
+  }
+
+  .ag-paging-row-summary-panel {
+    display: none;
+  }
+
+  .ag-paging-page-summary-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .ag-paging-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 6px;
+    height: 6px;
+  }
+  
+  .ag-paging-page-size {
+    font-size: 12px;
+  }
+}

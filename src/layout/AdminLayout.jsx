@@ -1,15 +1,20 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import Sidebar from "../components/Admin/Sidebar"
 import Header from "../components/Admin/Header"
 import Swal from "sweetalert2"
 
 function AdminLayout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches
+    setSidebarOpen(isDesktop)
+  }, [])
+
   const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev)
+    setSidebarOpen(prev => !prev)
   }
 
   const handleLogout = async () => {
@@ -41,24 +46,26 @@ function AdminLayout({ children }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 font-body">
-      <Sidebar
-        open={sidebarOpen}
-        onLogout={handleLogout}
-      />
+    <div className="min-h-screen bg-slate-100 font-body relative">
+      {/* Overlay khusus mobile */}
+      {sidebarOpen && (
+        <div
+          onClick={() => setSidebarOpen(false)}
+          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+        />
+      )}
+
+      <Sidebar open={sidebarOpen} onLogout={handleLogout} onToggleSidebar={toggleSidebar}/>
 
       <div
         className={`
           transition-all duration-300
-          ${sidebarOpen ? "pl-64" : "pl-0"}
+          ${sidebarOpen ? "md:pl-64" : "md:pl-0"}
         `}
       >
-        <Header
-          onToggleSidebar={toggleSidebar}
-          sidebarState={sidebarOpen}
-        />
+        <Header sidebarState={sidebarOpen} onToggleSidebar={toggleSidebar} />
 
-        <main className="p-8">
+        <main className="p-4 md:p-8">
           {children}
         </main>
       </div>
