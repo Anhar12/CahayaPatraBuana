@@ -8,5 +8,5 @@ export function login(username, password) {
 }
 
 export async function checkAuth() {
-  return await apiFetch("/auth/me")
+  return await apiFetch("/api/auth/me")
 }

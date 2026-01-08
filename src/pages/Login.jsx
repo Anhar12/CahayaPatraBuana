@@ -36,7 +36,7 @@ function Login() {
       setLoading(true)
 
       const res = await login(username, password)
-      localStorage.setItem("token", res.token)
+      localStorage.setItem("token", res.data.token)
 
       await Swal.fire({
         icon: "success",

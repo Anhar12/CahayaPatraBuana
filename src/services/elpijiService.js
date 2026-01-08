@@ -1,7 +1,9 @@
 import { apiFetch } from "./api"
 
-export function getElpiji({ page = 1, limit = 10, search = "" }) {
-  const params = new URLSearchParams({ page, limit, search })
+export function getElpiji({ search = "" } = {}) {
+  const params = new URLSearchParams()
+  if (search) params.append("search", search)
+
   return apiFetch(`/api/elpiji?${params.toString()}`)
 }
 

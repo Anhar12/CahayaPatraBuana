@@ -7,20 +7,24 @@ function DataTable({ rowData, columnDefs }) {
   return (
     <div
       className="ag-theme-quartz custom-grid"
-      style={{ width: "100%", height: 420 }}
+      style={{ width: "100%", height: 475 }}
     >
       <AgGridReact
         rowData={rowData}
         columnDefs={columnDefs}
         pagination
-        paginationPageSize={5}
+        paginationPageSize={10}
+        domLayout="normal"
         headerHeight={48}
+        floatingFiltersHeight={40}
+        rowHeight={38}
+        alwaysShowHorizontalScroll
         defaultColDef={{
-          sortable: true,
+          sortable: false,
           filter: true,
           suppressMovable: true,
+          cellClass: "ag-cell-center",
         }}
-        rowSelection="multiple"
       />
     </div>
   )

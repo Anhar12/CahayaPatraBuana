@@ -14,7 +14,7 @@ function LoadingOverlay({ show }) {
           "
         />
         <p className="text-white text-sm tracking-wide">
-          Memproses login...
+          Loading...
         </p>
       </div>
     </div>

@@ -40,10 +40,6 @@ html {
   color: white;
 }
 
-.ag-theme-quartz.custom-grid .ag-icon {
-  color: white;
-}
-
 .ag-theme-quartz.custom-grid .ag-floating-filter input::placeholder {
   color: #d1fae5;
 }
@@ -57,14 +53,18 @@ html {
   background-color: #dcfce7 !important; /* green-100 */
 }
 
-/* === PAGINATION === */
-.ag-theme-quartz.custom-grid .ag-paging-panel {
-  border-top: 1px solid #e5e7eb;
-  padding: 8px 12px;
-  background-color: #f8fafc;
-}
-
 /* === FILTER ICON === */
 .ag-theme-quartz.custom-grid .ag-icon-filter {
   color: white;
 }
+
+.ag-cell {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.ag-column-first {
+  justify-content: center;
+  font-weight: 600;
+}
+

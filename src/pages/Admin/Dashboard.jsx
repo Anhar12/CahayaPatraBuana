@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react"
 import AdminLayout from "../../layout/AdminLayout"
+import ElpijiFormModal from "../../components/Admin/ElpijiFormModal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faTruck,
@@ -10,95 +12,165 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import DataTable from "../../components/Admin/DataTable"
+import { getElpiji, deleteElpiji } from "../../services/elpijiService"
+import { getDashboardStats } from "../../services/dashboardService"
+import LoadingOverlay from "../../components/LoadingOverlay"
 
 function Dashboard() {
+  const [showModal, setShowModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [rowData, setRowData] = useState([])
+  const [dashboardData, setDashboardData] = useState({
+    total_3kg: 0,
+    total_12kg: 0,
+    truck: 0,
+    pickup: 0,
+  })
+  const [selectedRow, setSelectedRow] = useState(null)
+
   const handleTambah = () => {
-    Swal.fire({
-      icon: "info",
-      title: "Tambah",
-      text: "Button Tambah diklik",
-      confirmButtonColor: "#016630",
-    })
+    setShowModal(true)
   }
 
+  const handleDelete = async (row) => {
+    const result = await Swal.fire({
+      icon: "warning",
+      title: "Hapus data?",
+      text: `Data pangkalan "${row.pangkalan}" akan dihapus permanen`,
+      showCancelButton: true,
+      confirmButtonText: "Ya, hapus",
+      cancelButtonText: "Batal",
+      confirmButtonColor: "#dc2626",
+      cancelButtonColor: "#6b7280",
+    })
+
+    if (!result.isConfirmed) return
+
+    try {
+      setLoading(true)
+      await deleteElpiji(row.id)
+      await fetchData()
+
+      Swal.fire({
+        icon: "success",
+        title: "Dihapus",
+        text: "Data berhasil dihapus",
+        confirmButtonColor: "#016630",
+      })
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Gagal menghapus",
+        text: err.message || "Terjadi kesalahan",
+        confirmButtonColor: "#016630",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const fetchData = async () => {
+    setLoading(true)
+
+    try {
+      const [elpijiRes, dashboardRes] = await Promise.all([
+        getElpiji(),
+        getDashboardStats(),
+      ])
+
+      setRowData(elpijiRes.data.data)
+      setDashboardData(dashboardRes.data)
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Gagal memuat data",
+        text: err.message,
+        confirmButtonColor: "#016630",
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+  
   const columnDefs = [
-    { headerName: "ID", field: "id", width: 80, filter: true },
-    { headerName: "Pangkalan", field: "pangkalan", flex: 1, filter: true },
-    { headerName: "Pemilik", field: "pemilik", flex: 1, filter: true },
-    { headerName: "Phone", field: "phone", flex: 1, filter: true },
-    { headerName: "Alamat", field: "alamat", flex: 2, filter: true },
-    { headerName: "3 Kg", field: "kg3", width: 90, filter: true },
-    { headerName: "12 Kg", field: "kg12", width: 90, filter: true },
     {
-      headerName: "Aksi",
-      width: 120,
-      cellRenderer: () => (
-        <div className="flex gap-2 justify-center">
+      headerName: "No.",
+      width: 50,
+      filter: false,
+      suppressMenu: true,
+      sortable: false,
+      valueGetter: (params) => params.node.rowIndex + 1,
+      cellClass: "ag-cell-center ag-cell-center-text",
+    },
+    {
+      headerName: "",
+      width: 70,
+      filter: false,
+      suppressMenu: true,
+      sortable: false,
+      cellRenderer: (params) => (
+        <div className="flex gap-2 justify-center w-full">
           <button
-            onClick={() =>
-              Swal.fire({
-                icon: "info",
-                title: "Edit",
-                text: "Edit diklik",
-                confirmButtonColor: "#016630",
-              })
-            }
-            className="text-green-700"
+            onClick={() => {
+              setSelectedRow(params.data)
+              setShowModal(true)
+            }}
+            className="text-yellow-500 cursor-pointer"
           >
             <FontAwesomeIcon icon={faPenToSquare} />
           </button>
 
           <button
-            onClick={() =>
-              Swal.fire({
-                icon: "warning",
-                title: "Hapus",
-                text: "Hapus diklik",
-                confirmButtonColor: "#016630",
-              })
-            }
-            className="text-red-600"
+            onClick={() => handleDelete(params.data)}
+            className="text-red-600 cursor-pointer"
           >
             <FontAwesomeIcon icon={faTrash} />
           </button>
         </div>
       ),
     },
-  ]
 
-  const rowData = [
-    {
-      id: 1,
-      pangkalan: "Lorem",
-      pemilik: "Ipsum",
-      phone: "0877777777",
-      alamat: "Jl. Lorem Ipsum",
-      kg3: 40,
-      kg12: 12,
-    },
-    {
-      id: 2,
-      pangkalan: "Dolor Sit",
-      pemilik: "Amet",
-      phone: "0877777777",
-      alamat: "Jl. Dolot Sit Amet",
-      kg3: 40,
-      kg12: 12,
-    },
+    { headerName: "Pangkalan", field: "pangkalan", minWidth: 180 },
+    { headerName: "Pemilik", field: "pemilik", minWidth: 160 },
+    { headerName: "Phone", field: "nomor", minWidth: 150 },
+    { headerName: "Alamat", field: "alamat", minWidth: 300, flex: 1 },
+    { headerName: "3 Kg", field: "elpiji_3kg", minWidth: 100 },
+    { headerName: "12 Kg", field: "elpiji_12kg", minWidth: 100 },
   ]
 
   return (
     <AdminLayout>
       <div className="space-y-10">
-        {/* STAT */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <StatCard icon={faTruck} label="Jumlah Truck" value="12" />
-          <StatCard icon={faIndustry} label="Jumlah Pickup" value="8" />
-          <StatCard icon={faGasPump} label="Elpiji 3 Kg" value="1.240" />
-          <StatCard icon={faGasPump} label="Elpiji 12 Kg" value="680" />
+          <StatCard
+            icon={faTruck}
+            label="Jumlah Truck"
+            value={dashboardData.truck}
+          />
+
+          <StatCard
+            icon={faIndustry}
+            label="Jumlah Pickup"
+            value={dashboardData.pickup}
+          />
+
+          <StatCard
+            icon={faGasPump}
+            label="Elpiji 3 Kg"
+            value={dashboardData.total_3kg}
+          />
+
+          <StatCard
+            icon={faGasPump}
+            label="Elpiji 12 Kg"
+            value={dashboardData.total_12kg}
+          />
         </div>
 
-        {/* TABLE */}
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-bold text-green-800">
@@ -108,14 +180,14 @@ function Dashboard() {
             <button
               onClick={handleTambah}
               className="
-                flex items-center gap-2
+                flex items-center gap-2 cursor-pointer
                 px-4 py-2 bg-green-50 text-green-700 font-semibold
                 rounded-md border border-green-700
                 shadow-[0_4px_0_0_rgba(22,163,74,0.4)]
                 hover:translate-y-[2px]
                 hover:shadow-[0_2px_0_0_rgba(22,163,74,0.4)]
                 active:translate-y-[4px]
-                active:shadow-none
+                active:shadow-none transition-all
               "
             >
               <FontAwesomeIcon icon={faPlus} />
@@ -129,6 +201,32 @@ function Dashboard() {
           />
         </div>
       </div>
+
+      {showModal && (
+        <ElpijiFormModal
+          initialData={selectedRow}
+          onClose={() => {
+            setShowModal(false)
+            setSelectedRow(null)
+          }}
+          onSuccess={async () => {
+            await fetchData()
+            setShowModal(false)
+            setSelectedRow(null)
+
+            Swal.fire({
+              icon: "success",
+              title: "Berhasil",
+              text: selectedRow
+                ? "Data berhasil diperbarui"
+                : "Data berhasil ditambahkan",
+              confirmButtonColor: "#016630",
+            })
+          }}
+        />
+      )}
+
+      <LoadingOverlay show={loading} />
     </AdminLayout>
   )
 }
