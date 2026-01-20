@@ -65,8 +65,8 @@ function Footer() {
         </p>
 
         <div className="flex gap-4">
-          <a href="/" className={iconStyle}><FontAwesomeIcon icon={faWhatsapp}/></a>
-          <a href="/" className={iconStyle}><FontAwesomeIcon icon={faEnvelope}/></a>
+          <a href="wa.me/6282255695790" className={iconStyle}><FontAwesomeIcon icon={faWhatsapp}/></a>
+          <a href="mailto:cahyapatrabuana@gmail.com" className={iconStyle}><FontAwesomeIcon icon={faEnvelope}/></a>
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faInstagram}/></a>
           <a href="/" className={iconStyle}><FontAwesomeIcon icon={faLinkedinIn}/></a>
         </div>
