@@ -44,7 +44,7 @@ function Contact() {
                 Telepon
               </h3>
               <p className="text-slate-600 text-sm">
-                (021) 1234 5678
+                +62 822-5569-5790
               </p>
             </div>
 
@@ -67,7 +67,7 @@ function Contact() {
                 Email
               </h3>
               <p className="text-slate-600 text-sm">
-                info@cahyapatrabuana.co.id
+                cahyapatrabuana@gmail.com
               </p>
             </div>
 
@@ -90,8 +90,8 @@ function Contact() {
                 Alamat
               </h3>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Jl. Contoh Alamat No. 123<br />
-                Kota, Provinsi, Indonesia
+                Jl. Tengkawang, No. 28, RT 15<br />
+                Kel. Karang Anyar, Kec. Sungai Kunjang Samarinda
               </p>
             </div>
 

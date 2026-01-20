@@ -14,24 +14,9 @@ function About() {
           <div className="font-body">
 
             <p className="text-slate-600 leading-relaxed mb-4 text-justify">
-              PT. Cahya Patra Buana adalah perusahaan yang bergerak di bidang
-              distribusi Liquefied Petroleum Gas (LPG) untuk kebutuhan rumah
-              tangga, usaha kecil, serta sektor industri dan komersial.
+              PT. Cahya Patra Buana memiliki perjalanan yang panjang sebelum mencapai posisi seperti saat ini. Perusahaan ini awalnya berdiri pada tahun 2016 dengan nama CV. Sumber Gas Mandiri, yang bergerak di bidang distribusi gas LPG untuk wilayah Samarinda dan sekitarnya. Seiring berjalannya waktu, meningkatnya permintaan pasar dan kebutuhan untuk memberikan pelayanan yang lebih baik mendorong perusahaan melakukan transformasi. Pada tahun 2018, perusahaan berganti nama menjadi PT. Cahya Patra Buana, yang mencerminkan visi baru sebagai agen distribusi gas LPG yang lebih profesional dan terpercaya.
             </p>
-
-            <p className="text-slate-600 leading-relaxed mb-4 text-justify">
-              Kami berkomitmen untuk menyediakan pasokan LPG yang aman, tepat
-              waktu, dan sesuai dengan standar keselamatan serta regulasi yang
-              berlaku. Dengan dukungan armada distribusi yang terawat dan tenaga
-              kerja berpengalaman, kami memastikan setiap proses pengiriman
-              berjalan secara profesional dan terpercaya.
-            </p>
-
-            <p className="text-slate-600 leading-relaxed text-justify">
-              Kepercayaan pelanggan menjadi prioritas utama kami dalam membangun
-              kemitraan jangka panjang serta mendukung kelancaran aktivitas
-              sehari-hari dan operasional bisnis pelanggan.
-            </p>
+            
           </div>
 
           {/* Image */}
@@ -70,9 +55,7 @@ function About() {
             Visi
           </h3>
           <p className="text-slate-600 leading-relaxed text-justify">
-            Menjadi perusahaan distribusi LPG yang terpercaya dan berkelanjutan
-            dalam menyediakan energi bagi masyarakat dan dunia usaha, dengan
-            mengedepankan keselamatan, ketepatan distribusi, dan kepuasan pelanggan.
+            Menjadi agen LPG 3 kg terkemuka di Indonesia yang dipercaya masyarakat, menyediakan energi yang bersih, aman, dan terjangkau untuk masyarakat.
           </p>
         </div>
 
@@ -93,16 +76,19 @@ function About() {
           </h3>
           <ol className="list-decimal list-inside text-slate-600 space-y-3">
             <li>
-              Menyediakan layanan distribusi LPG yang aman, tepat waktu, dan sesuai
-              dengan standar keselamatan serta regulasi yang berlaku.
+              Menyediakan produk berkualitas
             </li>
             <li>
-              Mengelola sistem logistik dan distribusi secara profesional untuk
-              menjamin ketersediaan pasokan bagi pelanggan.
+              Edukasi masyarakat
             </li>
             <li>
-              Membangun hubungan jangka panjang dengan pelanggan dan mitra usaha
-              melalui pelayanan yang konsisten dan terpercaya.
+              Keterjangkauan harga
+            </li>
+            <li>
+              Pengembangan sumber daya manusia
+            </li>
+            <li>
+              Komitmen terhadap lingkungan
             </li>
           </ol>
         </div>
