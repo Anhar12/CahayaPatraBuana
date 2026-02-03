@@ -92,7 +92,7 @@ function Transaksi() {
 
       Swal.fire({
         icon: "success",
-        title: "Dihapus",
+        title: "Export Data",
         text: "Berhasil export data transaksi.",
         confirmButtonColor: "#016630",
       })
@@ -109,15 +109,6 @@ function Transaksi() {
   }
 
   const handleDelete = async (row) => {
-    if (row.status === "Completed") {
-      return Swal.fire({
-        icon: "warning",
-        title: "Tidak bisa dihapus",
-        text: "Transaksi yang sudah selesai tidak dapat dihapus",
-        confirmButtonColor: "#016630",
-      })
-    }
-
     const result = await Swal.fire({
       icon: "warning",
       title: "Hapus transaksi?",
@@ -261,7 +252,10 @@ function Transaksi() {
         </div>
       ),
     },
-    { headerName: "Status", field: "status", minWidth: 120 },
+    { headerName: "Pangkalan", field: "pangkalan", minWidth: 160 },
+    { headerName: "Driver", field: "nama_driver", minWidth: 150 },
+    { headerName: "LPG 3 Kg", field: "lpg_3kg", minWidth: 100 },
+    { headerName: "LPG 12 Kg", field: "lpg_12kg", minWidth: 110 },
     {
       headerName: "Tanggal",
       field: "tanggal",
@@ -272,10 +266,7 @@ function Transaksi() {
         return `${d}/${m}/${y}`
       },
     },
-    { headerName: "Pangkalan", field: "pangkalan", minWidth: 160 },
-    { headerName: "Driver", field: "nama_driver", minWidth: 150 },
-    { headerName: "LPG 3 Kg", field: "lpg_3kg", minWidth: 100 },
-    { headerName: "LPG 12 Kg", field: "lpg_12kg", minWidth: 110 },
+    { headerName: "Status", field: "status", minWidth: 120 },
   ]
 
   return (
