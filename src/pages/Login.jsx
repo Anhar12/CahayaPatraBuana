@@ -47,7 +47,7 @@ function Login() {
         confirmButtonColor: "#016630",
       })
 
-      navigate("/admin/dashboard")
+      navigate("/admin/transaksi")
     } catch (err) {
       Swal.fire({
         icon: "error",
