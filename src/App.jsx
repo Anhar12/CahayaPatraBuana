@@ -3,7 +3,9 @@ import Home from "./pages/Home"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
 import Login from "./pages/Login"
-import Dashboard from "./pages/Admin/Dashboard"
+import Pangkalan from "./pages/Admin/Pangkalan"
+import Transaksi from "./pages/Admin/Transaksi"
+import Storage from "./pages/Admin/Storage"
 import ProtectedRoute from "./routes/ProtectedRoute"
 
 function App() {
@@ -15,10 +17,26 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route
-          path="/admin/dashboard"
+          path="/admin/pangkalan"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <Pangkalan />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/transaksi"
+          element={
+            <ProtectedRoute>
+              <Transaksi />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/storage"
+          element={
+            <ProtectedRoute>
+              <Storage />
             </ProtectedRoute>
           }
         />

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import Swal from "sweetalert2"
 import { createElpiji, updateElpiji } from "../../services/elpijiService"
 import LoadingOverlay from "../LoadingOverlay"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 
 function ElpijiFormModal({ onClose, onSuccess, initialData }) {
   const [visible, setVisible] = useState(false)
@@ -10,7 +12,6 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
 
   useEffect(() => {
     if (initialData) {
-      console.log(initialData)
       setForm({
         pangkalan: initialData.pangkalan,
         pemilik: initialData.pemilik,
@@ -96,7 +97,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
       <div
         onClick={(e) => e.stopPropagation()}
         className={`
-          w-full max-w-md bg-white rounded
+          w-full max-w-xl bg-white rounded
           overflow-hidden relative
           shadow-[0_14px_0_0_rgba(22,163,74,0.45)]
           transform transition-all duration-300
@@ -108,7 +109,7 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
         {/* Header */}
         <div className="flex items-center justify-between bg-green-700 p-4">
           <h2 className="text-lg md:text-xl font-bold text-white">
-            Tambah Data Pangkalan LPG
+            {initialData ? "Edit Data" : "Tambah Data"} Pangkalan LPG
           </h2>
 
           <button
@@ -120,17 +121,19 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
             "
             aria-label="Close"
           >
-            ×
+            <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} autoComplete="off" className="flex flex-col gap-4 p-4 border border-green-700/40">
+        <form
+          onSubmit={handleSubmit}
+          autoComplete="off"
+          className="flex flex-col gap-4 p-4 border border-green-700/40"
+        >
           {[
             { label: "Pangkalan", name: "pangkalan", placeholder: "Pangkalan..." },
-            { label: "Pemilik", name: "pemilik", placeholder: "Joko..." },
-            { label: "Nomor HP", name: "nomor", placeholder: "08xxxxx" },
-            { label: "Alamat", name: "alamat", placeholder: "Jl...." },
+            { label: "Pemilik", name: "pemilik", placeholder: "Nama Pemilik..." },
           ].map((f) => (
             <div key={f.name}>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -153,6 +156,54 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
             </div>
           ))}
 
+          {/* NOMOR HP */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Nomor HP
+            </label>
+            <input
+              type="tel"
+              name="nomor"
+              value={form.nomor}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "").slice(0, 15)
+                setForm({ ...form, nomor: value })
+              }}
+              placeholder="08xxxxxxxxxx"
+              maxLength={15}
+              required
+              className="
+                w-full px-4 py-2 rounded-md
+                border border-slate-300
+                focus:outline-none text-sm
+                focus:ring-2 focus:ring-green-600/40
+                focus:border-green-600
+              "
+            />
+          </div>
+
+          {/* ALAMAT */}
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Alamat
+            </label>
+            <input
+              name="alamat"
+              value={form.alamat}
+              onChange={handleChange}
+              required
+              placeholder="Jl...."
+              className="
+                w-full px-4 py-2 rounded-md
+                border border-slate-300
+                focus:outline-none text-sm
+                focus:ring-2 focus:ring-green-600/40
+                focus:border-green-600
+              "
+            />
+          </div>
+
+          {/* LPG */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -165,7 +216,14 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
                 onChange={handleChange}
                 placeholder="9xx"
                 required
-                className="w-full px-4 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-green-600/40 focus:outline-none focus:border-green-600"
+                min={0}
+                className="
+                  w-full px-4 py-2 rounded-md
+                  border border-slate-300
+                  focus:outline-none
+                  focus:ring-2 focus:ring-green-600/40
+                  focus:border-green-600
+                "
               />
             </div>
 
@@ -180,17 +238,25 @@ function ElpijiFormModal({ onClose, onSuccess, initialData }) {
                 onChange={handleChange}
                 placeholder="9xx"
                 required
-                className="w-full px-4 py-2 rounded-md border border-slate-300 focus:ring-2 focus:ring-green-600/40 focus:outline-none focus:border-green-600"
+                min={0}
+                className="
+                  w-full px-4 py-2 rounded-md
+                  border border-slate-300
+                  focus:outline-none
+                  focus:ring-2 focus:ring-green-600/40
+                  focus:border-green-600
+                "
               />
             </div>
           </div>
 
-          {/* Action */}
+          {/* ACTION */}
           <div className="flex gap-3 py-4">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2
+              className="
+                flex-1 px-4 py-2
                 bg-gray-50 text-gray-700 font-semibold
                 rounded-md border border-gray-700
                 shadow-[0_6px_0_0_rgb(106,114,130)]

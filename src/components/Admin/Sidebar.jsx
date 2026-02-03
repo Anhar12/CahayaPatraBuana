@@ -1,7 +1,25 @@
+import { NavLink } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faGauge, faRightFromBracket, faXmark } from "@fortawesome/free-solid-svg-icons"
+import {
+  faStore,
+  faReceipt,
+  faWarehouse,
+  faRightFromBracket,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons"
 
 function Sidebar({ open, onLogout, onToggleSidebar }) {
+  const menuClass = (isActive) =>
+    `
+      w-full flex items-center gap-3 px-4 py-2 rounded-md
+      transition cursor-pointer
+      ${
+        isActive
+          ? "bg-green-700 font-semibold"
+          : "hover:bg-green-700"
+      }
+    `
+
   return (
     <aside
       className={`
@@ -13,6 +31,7 @@ function Sidebar({ open, onLogout, onToggleSidebar }) {
         ${open ? "translate-x-0" : "-translate-x-full"}
       `}
     >
+      {/* TOP */}
       <div>
         <div className="flex items-center gap-3 mb-10">
           <img
@@ -20,25 +39,45 @@ function Sidebar({ open, onLogout, onToggleSidebar }) {
             alt="Logo"
             className="w-10 h-10 object-contain"
           />
-          <span className="font-bold text-lg">
-            Admin Panel
-          </span>
+          <span className="font-bold text-lg">Admin Panel</span>
+
           <button
             onClick={onToggleSidebar}
-            className="ml-auto md:hidden text-white text-md cursor-pointer font-bold hover:opacity-100 opacity-80 transition"
+            className="ml-auto md:hidden text-white text-md font-bold opacity-80 hover:opacity-100 transition"
           >
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
 
+        {/* MENU */}
         <nav className="space-y-2">
-          <div className="w-full flex items-center gap-3 px-4 py-2 rounded-md bg-green-700 opacity-90">
-            <FontAwesomeIcon icon={faGauge} />
-            Dashboard
-          </div>
+          <NavLink
+            to="/admin/transaksi"
+            className={({ isActive }) => menuClass(isActive)}
+          >
+            <FontAwesomeIcon icon={faReceipt} />
+            Transaksi
+          </NavLink>
+
+          <NavLink
+            to="/admin/pangkalan"
+            className={({ isActive }) => menuClass(isActive)}
+          >
+            <FontAwesomeIcon icon={faStore} />
+            Pangkalan
+          </NavLink>
+
+          <NavLink
+            to="/admin/storage"
+            className={({ isActive }) => menuClass(isActive)}
+          >
+            <FontAwesomeIcon icon={faWarehouse} />
+            Storage
+          </NavLink>
         </nav>
       </div>
 
+      {/* LOGOUT */}
       <button
         onClick={onLogout}
         className="flex items-center gap-3 px-4 py-2 rounded-md bg-green-700 hover:bg-green-600 transition"

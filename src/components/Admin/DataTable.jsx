@@ -5,16 +5,13 @@ import "ag-grid-community/styles/ag-theme-quartz.css"
 
 function DataTable({ rowData, columnDefs }) {
   return (
-    <div
-      className="ag-theme-quartz custom-grid"
-      style={{ width: "100%", height: 475 }}
-    >
+    <div className="ag-theme-quartz custom-grid" style={{ width: "100%" }}>
       <AgGridReact
         rowData={rowData}
         columnDefs={columnDefs}
         pagination
-        paginationPageSize={10}
-        domLayout="normal"
+        paginationPageSize={20}
+        domLayout="autoHeight"
         headerHeight={48}
         floatingFiltersHeight={40}
         rowHeight={38}

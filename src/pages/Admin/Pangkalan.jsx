@@ -4,50 +4,67 @@ import AdminLayout from "../../layout/AdminLayout"
 import ElpijiFormModal from "../../components/Admin/ElpijiFormModal"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-  faTruck,
-  faIndustry,
-  faGasPump,
   faPlus,
   faPenToSquare,
   faTrash,
   faSearch,
-  faFireFlameSimple,
+  faTruck,
   faTruckPickup,
+  faFireFlameSimple,
   faFire
 } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import DataTable from "../../components/Admin/DataTable"
 import { getElpiji, deleteElpiji } from "../../services/elpijiService"
-import { getDashboardStats } from "../../services/dashboardService"
+import { getStorage } from "../../services/storageService"
 import LoadingOverlay from "../../components/LoadingOverlay"
 
-function Dashboard() {
+function Pangkalan() {
   const [showModal, setShowModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [rowData, setRowData] = useState([])
-  const [dashboardData, setDashboardData] = useState({
-    total_3kg: 0,
-    total_12kg: 0,
-    truck: 0,
-    pickup: 0,
-  })
   const [selectedRow, setSelectedRow] = useState(null)
   const [searchParams, setSearchParams] = useSearchParams()
   const searchQuery = searchParams.get("q") || ""
   const [searchInput, setSearchInput] = useState(searchQuery)
+  const [dashboardData, setDashboardData] = useState({
+    truck: 0,
+    pickup: 0,
+    total_3kg: 0,
+    total_12kg: 0,
+  })
 
   // get data elpiji
   const fetchData = async () => {
     setLoading(true)
-    
+
     try {
-      const [elpijiRes, dashboardRes] = await Promise.all([
+      const [elpijiRes, storageRes] = await Promise.all([
         getElpiji({ search: searchQuery }),
-        getDashboardStats(),
+        getStorage(),
       ])
 
+      // data table elpiji
       setRowData(elpijiRes.data.data)
-      setDashboardData(dashboardRes.data)
+
+      // dashboard storage
+      const rows = storageRes.data.data
+
+      const mapped = {
+        truck: 0,
+        pickup: 0,
+        total_3kg: 0,
+        total_12kg: 0,
+      }
+
+      rows.forEach((r) => {
+        if (r.nama === "Truck") mapped.truck = r.jumlah ?? 0
+        if (r.nama === "Pick Up") mapped.pickup = r.jumlah ?? 0
+        if (r.nama === "LPG 3kg") mapped.total_3kg = r.jumlah ?? 0
+        if (r.nama === "LPG 12kg") mapped.total_12kg = r.jumlah ?? 0
+      })
+
+      setDashboardData(mapped)
     } catch (err) {
       Swal.fire({
         icon: "error",
@@ -176,37 +193,17 @@ function Dashboard() {
   return (
     <AdminLayout>
       <div className="space-y-10">
-        {/* dashboard cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <StatCard
-            icon={faTruck}
-            label="Jumlah Truck"
-            value={dashboardData.truck}
-          />
-
-          <StatCard
-            icon={faTruckPickup}
-            label="Jumlah Pickup"
-            value={dashboardData.pickup}
-          />
-
-          <StatCard
-            icon={faFireFlameSimple}
-            label="Elpiji 3 Kg"
-            value={dashboardData.total_3kg}
-          />
-
-          <StatCard
-            icon={faFire}
-            label="Elpiji 12 Kg"
-            value={dashboardData.total_12kg}
-          />
+          <StatCard icon={faTruck} label="Jumlah Truck" value={dashboardData.truck} />
+          <StatCard icon={faTruckPickup} label="Jumlah Pickup" value={dashboardData.pickup} />
+          <StatCard icon={faFireFlameSimple} label="Elpiji 3 Kg" value={dashboardData.total_3kg} />
+          <StatCard icon={faFire} label="Elpiji 12 Kg" value={dashboardData.total_12kg} />
         </div>
 
         {/* data table elpiji */}
         <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
           <h2 className="md:text-xl font-bold text-green-800 text-center mb-6">
-            Data Pangkalan Elpiji
+            Data Pangkalan
           </h2>
 
           <div className="flex items-center justify-between mb-4">
@@ -319,4 +316,4 @@ function StatCard({ icon, label, value }) {
   )
 }
 
-export default Dashboard
+export default Pangkalan
